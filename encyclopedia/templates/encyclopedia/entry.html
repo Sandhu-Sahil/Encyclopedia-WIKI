@@ -1,0 +1,19 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    {% if bomb %}
+        {% if bomb is True %}
+            <br>
+            <p style="border-style: double; border-color: red; color: orangered; text-align: center;">Encyclopedia entry already exists, you can only edit the previously created page. </p>
+        {% endif %}
+    {% endif %}
+    
+    {{entry | safe}}
+
+    <a class="btn btn-primary" href="{% url 'edit' title=title %}">Edit Page</a>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <div style=" background-color: lightgrey; ">
+                <h1 style="display: inline; text-decoration: underline;"><b>Encyclopedia</b></h1>
+                
+                <div style="display: inline; padding:10px;">
+                    <a href="{% url 'index' %}">Home</a>
+                </div>
+                <div style="display: inline; padding:10px;">
+                    <a href ="{% url 'create' %}">Create New Page</a>
+                </div>
+                <div style="display: inline; padding:10px;">
+                    <a href ="{% url 'random_title' %}">Random Page</a>
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                
+                <form action="{% url 'search' %}" method="post">
+                    {% csrf_token %}
+                    <input id="find" name="find" type="text" list="data" spellcheck="false" placeholder=" Search Encyclopedia" autocomplete="off" size="75px" autofocus="on">
+                    <datalist id="data">
+                        {% for dat in data %}
+                            <option value="{{ dat }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </form>
+
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>
